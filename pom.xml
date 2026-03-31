@@ -64,7 +64,7 @@
         </dependency>
         <dependency>
             <groupId>se.sprinto.hakan</groupId>
-            <artifactId>demo-spring-messenger</artifactId>
+            <artifactId>spring-messenger</artifactId>
             <version>1.0.3</version>
         </dependency>
 

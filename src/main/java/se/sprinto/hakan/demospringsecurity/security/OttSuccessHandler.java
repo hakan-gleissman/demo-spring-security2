@@ -8,17 +8,17 @@ import org.springframework.security.web.authentication.ott.OneTimeTokenGeneratio
 import org.springframework.security.web.authentication.ott.RedirectOneTimeTokenGenerationSuccessHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import se.sprinto.hakan.demospringmessenger.model.Email;
-import se.sprinto.hakan.demospringmessenger.service.MessagingService;
+import se.sprinto.hakan.springmessenger.model.Email;
+import se.sprinto.hakan.springmessenger.service.MessageService;
 
 import java.io.IOException;
 
 @Component
 public class OttSuccessHandler implements OneTimeTokenGenerationSuccessHandler {
-    private final MessagingService messagingService;
+    private final MessageService messagingService;
     private final RedirectOneTimeTokenGenerationSuccessHandler redirectOneTimeTokenGenerationSuccessHandler;
 
-    public OttSuccessHandler(MessagingService messagingService, RedirectOneTimeTokenGenerationSuccessHandler redirectOneTimeTokenGenerationSuccessHandler) {
+    public OttSuccessHandler(MessageService messagingService, RedirectOneTimeTokenGenerationSuccessHandler redirectOneTimeTokenGenerationSuccessHandler) {
         this.messagingService = messagingService;
         this.redirectOneTimeTokenGenerationSuccessHandler = redirectOneTimeTokenGenerationSuccessHandler;
     }
@@ -33,7 +33,7 @@ public class OttSuccessHandler implements OneTimeTokenGenerationSuccessHandler {
         email.setRecipient(request.getParameter("username"));
         email.setMessage(link);
         email.setSubject("One time token link");
-        messagingService.sendMessage(email);
+        messagingService.send(email);
         redirectOneTimeTokenGenerationSuccessHandler.handle(request, response, oneTimeToken);
 
     }

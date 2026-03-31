@@ -14,6 +14,7 @@ public class HomeController {
 
     @GetMapping("/ott/sent")
     public @ResponseBody String ottSent() {
+        //hello
         return "Ott skickad";
     }
 }

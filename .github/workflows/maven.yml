@@ -25,5 +25,3 @@ jobs:
 
       - name: Bygg projektet
         run: mvn -B clean package
-        env:
-          GITHUB_TOKEN: ${{ secrets.PASSWORD }}

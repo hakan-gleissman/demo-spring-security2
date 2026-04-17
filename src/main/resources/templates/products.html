@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Produkter</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<h1>Produkter</h1>
+
+<div th:each="entry : ${products}">
+
+    <h2 th:text="${entry.key}"></h2>
+
+    <div th:each="product : ${entry.value}">
+        <h3 th:text="${product.name}"></h3>
+        <p>Pris: <span th:text="${product.price}"></span></p>
+        <a th:href="@{/cart/add/{id}(id=${product.id})}">Lägg i kundvagn</a>
+    </div>
+    
+
+</div>
+
+<br>
+<a th:href="@{/cart}">Visa kundvagn</a>
+
+<form th:action="@{/logout}" method="post" style="margin-top: 20px;">
+    <button type="submit">Logga ut</button>
+</form>
+
+</body>
+</html>

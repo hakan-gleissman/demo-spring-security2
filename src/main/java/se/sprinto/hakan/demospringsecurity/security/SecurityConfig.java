@@ -2,12 +2,9 @@ package se.sprinto.hakan.demospringsecurity.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authorization.EnableMultiFactorAuthentication;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.authority.FactorGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,14 +18,13 @@ import se.sprinto.hakan.demospringsecurity.repository.UserRepository;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-@EnableMultiFactorAuthentication(
-        authorities = {
-                FactorGrantedAuthority.PASSWORD_AUTHORITY,
-                FactorGrantedAuthority.OTT_AUTHORITY
-        }
-)
+//@EnableMultiFactorAuthentication(
+//        authorities = {
+//                FactorGrantedAuthority.PASSWORD_AUTHORITY,
+//                FactorGrantedAuthority.OTT_AUTHORITY
+//        }
+//)
 public class SecurityConfig {
-    //private MessagingService messagingService;
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -43,12 +39,14 @@ public class SecurityConfig {
                         .requestMatchers("/public/**", "/ott/sent", "/actuator/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .oneTimeTokenLogin(
-                        ott -> ott.tokenGenerationSuccessHandler(
-                                ottSuccessHandler
-                        ))
+//                .oneTimeTokenLogin(
+//                        ott -> ott.tokenGenerationSuccessHandler(
+//                                ottSuccessHandler
+//                        ))
 
-                .formLogin(Customizer.withDefaults());
+                .formLogin(form ->
+                        form.defaultSuccessUrl("/products", true)
+                );
 
         return http.build();
     }

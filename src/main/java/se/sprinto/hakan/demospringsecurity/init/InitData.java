@@ -22,7 +22,7 @@ public class InitData {
         appUser.setPassword(passwordEncoder.encode("password"));
         appUser.setRole("ADMIN");
         appUser.setUsername("hakan.gleissman@gmail.com");
-        userRepository.save(appUser);
+        //userRepository.save(appUser);
 
 
     }

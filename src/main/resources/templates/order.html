@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Orderbekräftelse</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<h1>Orderbekräftelse</h1>
+
+<p>Tack för din beställning!</p>
+<p>Användare: <span th:text="${order.username}"></span></p>
+<p>Datum: <span th:text="${order.orderDate}"></span></p>
+
+<h2>Orderrader</h2>
+
+<div th:each="item : ${order.items}">
+    <h3 th:text="${item.productName}"></h3>
+    <p>Pris: <span th:text="${item.price}"></span></p>
+    <p>Antal: <span th:text="${item.quantity}"></span></p>
+    <p>Radtotal: <span th:text="${item.rowTotal}"></span></p>
+    <hr>
+</div>
+
+<p>Totalsumma: <span th:text="${order.total}"></span></p>
+
+<a th:href="@{/products}">Tillbaka till produkter</a>
+</body>
+</html>

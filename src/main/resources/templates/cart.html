@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Kundvagn</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+<h1>Kundvagn</h1>
+
+<div th:if="${cart.items.isEmpty()}">
+    <p>Kundvagnen är tom.</p>
+</div>
+
+<div th:each="item : ${cart.items}">
+    <h3 th:text="${item.productName}"></h3>
+    <p>Pris: <span th:text="${item.price}"></span></p>
+    <p>Antal: <span th:text="${item.quantity}"></span></p>
+    <p>Radtotal: <span th:text="${item.rowTotal}"></span></p>
+    <hr>
+</div>
+
+<p>Total: <span th:text="${cart.total}"></span></p>
+
+<br>
+<a th:href="@{/products}">Fortsätt handla</a>
+<br><br>
+<form th:action="@{/order}" method="post">
+    <button type="submit">Checkout</button>
+</form>
+
+</body>
+</html>
